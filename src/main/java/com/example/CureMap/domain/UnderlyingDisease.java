@@ -1,0 +1,11 @@
+package com.example.CureMap.domain;
+
+public enum UnderlyingDisease {
+    DIABETES,
+    IMMUNE_DEFICIENCY,
+    VOIDING_DYSFUNCTION,
+    CONGENITAL_URINARY_TRACT_MALFORMATION,
+    UROLITHIASIS,
+    PROSTATE_DISEASE,
+    RENAL_DISEASE
+}
