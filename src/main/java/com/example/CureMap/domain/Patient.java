@@ -30,7 +30,6 @@ public class Patient {
     @Enumerated(EnumType.STRING)
     private AgeGroup ageGroup;
 
-
     @ElementCollection(fetch = FetchType.LAZY)
     @Enumerated(EnumType.STRING)
     private List<UnderlyingDisease> underlyingDiseases;
@@ -45,10 +44,5 @@ public class Patient {
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<CurrentMedication> currentMedications = new HashSet<>();
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PredictionResult> predictionResults = new ArrayList<>();
-
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AntibioticRecommendation> antibioticRecommendations = new ArrayList<>();
 
 }
