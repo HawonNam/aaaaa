@@ -62,8 +62,9 @@ public class PatientService {
         return patient.getId();
     }
 
+    @Transactional(readOnly = true)
     public PatientResponseDto getPatientById(Long id) {
-        Patient patient = patientRepository.findById(id)
+        Patient patient = patientRepository.findWithDetailsById(id)
                 .orElseThrow(() -> new IllegalArgumentException("환자를 찾을 수 없습니다."));
 
         return new PatientResponseDto(patient);

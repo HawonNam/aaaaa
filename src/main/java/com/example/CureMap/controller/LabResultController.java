@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/patients/{id}/lab-result")
 @RequiredArgsConstructor
@@ -19,5 +21,12 @@ public class LabResultController {
         dto.setPatientId(id);
         LabResultResponseDto response = labResultService.createLabResult(dto);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<LabResultResponseDto>> getLabResults(
+            @PathVariable("id") Long patientId) {
+        List<LabResultResponseDto> list = labResultService.getLabResultsByPatientId(patientId);
+        return ResponseEntity.ok(list);
     }
 }

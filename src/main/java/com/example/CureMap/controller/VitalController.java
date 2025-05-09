@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/patients/{id}/vitals")
@@ -19,6 +21,12 @@ public class VitalController {
         dto.setPatientId(id);
         VitalsResponseDto response = vitalsService.saveVitals(dto);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<VitalsResponseDto>> getVitals(@PathVariable("id") Long patientId) {
+        List<VitalsResponseDto> dtos = vitalsService.getVitalsByPatientId(patientId);
+        return ResponseEntity.ok(dtos);
     }
 
 }

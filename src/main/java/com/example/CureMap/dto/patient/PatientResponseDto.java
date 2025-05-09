@@ -4,6 +4,7 @@ import com.example.CureMap.domain.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,6 +18,9 @@ public class PatientResponseDto {
     private String gender;
     private List<UnderlyingDisease> underlyingDiseases;
     private Boolean recentlyHospitalized;
+    private List<String> antibioticHistories;
+    private List<String> currentMedications;
+
 
     @Builder
     public PatientResponseDto(Patient patient) {
@@ -26,6 +30,14 @@ public class PatientResponseDto {
         this.gender = patient.getGender();
         this.underlyingDiseases = patient.getUnderlyingDiseases();
         this.recentlyHospitalized = patient.getRecentlyHospitalized();
+        this.antibioticHistories = patient.getAntibioticHistories()
+                .stream()
+                .map(AntibioticHistory::getAntibioticName)
+                .toList();
+        this.currentMedications = patient.getCurrentMedications()
+                .stream()
+                .map(CurrentMedication::getMedicationName)
+                .toList();
     }
 }
 

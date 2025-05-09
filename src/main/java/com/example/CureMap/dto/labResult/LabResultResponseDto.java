@@ -14,21 +14,29 @@ public class LabResultResponseDto {
     private String subTestName;          // 부검사명 (예: Protein)
     private String subTestResult;        // 부검사 결과내용 (예: Negative)
 
+    // 엔티티→DTO 변환용 생성자
     public LabResultResponseDto(LabResult entity) {
-        this.patientId = entity.getId();
-        this.specimenName = entity.getSpecimenName();
-        this.mainTestName = entity.getMainTestName();
-        this.mainTestResult = entity.getSubTestName();
-        this.subTestName = entity.getSubTestName();
-        this.subTestResult = entity.getSubTestResult();
+        this.patientId      = entity.getPatient().getId();
+        this.specimenName   = entity.getSpecimenName();
+        this.mainTestName   = entity.getMainTestName();
+        this.mainTestResult = entity.getMainTestResult();     // ← 여기가 잘못되어 있었음
+        this.subTestName    = entity.getSubTestName();
+        this.subTestResult  = entity.getSubTestResult();
     }
 
     @Builder
-    public LabResultResponseDto(Long patientId, String specimenName, String mainTestName, String mainTestResult, String subTestName, String subTestResult) {
-        this.patientId = patientId;
-        this.specimenName = subTestName;
-        this.mainTestName = mainTestName;
+    public LabResultResponseDto(Long patientId,
+                                String specimenName,
+                                String mainTestName,
+                                String mainTestResult,
+                                String subTestName,
+                                String subTestResult) {
+        this.patientId      = patientId;
+        this.specimenName   = specimenName;     // ← specimenName ←
+        this.mainTestName   = mainTestName;
         this.mainTestResult = mainTestResult;
+        this.subTestName    = subTestName;
+        this.subTestResult  = subTestResult;
     }
 
 }

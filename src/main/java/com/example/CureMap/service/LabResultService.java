@@ -8,6 +8,9 @@ import com.example.CureMap.repository.LabResultRepository;
 import com.example.CureMap.repository.PatientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -38,6 +41,17 @@ public class LabResultService {
                 .subTestName(saved.getSubTestName())
                 .subTestResult(saved.getSubTestResult())
                 .build();
+    }
+    @Transactional(readOnly = true)
+    public List<LabResultResponseDto> getLabResultsByPatientId(Long patientId) {
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid patient ID"));
+
+        return labResultRepository
+                .findAllByPatient(patient)
+                .stream()
+                .map(LabResultResponseDto::new)
+                .toList();
     }
 
 }

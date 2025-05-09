@@ -5,21 +5,22 @@ import lombok.Getter;
 
 @Getter
 public class VitalsResponseDto {
-    private Long id;
-    private Long patientId;
-    private Integer heartRate;
-    private Integer respiratoryRate;
-    private Double temperature;
-    private Integer systolicBP;
-    private Integer diastolicBP;
 
-    public VitalsResponseDto(Vitals entity) {
-        this.id = entity.getId();
-        this.patientId = entity.getPatient().getId();
-        this.heartRate = entity.getHeartRate();
-        this.respiratoryRate = entity.getRespiratoryRate();
-        this.temperature = entity.getTemperature();
-        this.systolicBP = entity.getSystolicBP();
-        this.diastolicBP = entity.getDiastolicBP();
+    private Long    id;
+    private Long    patientId;
+    private Double  temperature;      // 체온
+    private Integer heartRate;        // 맥박
+    private Integer respiratoryRate;  // 호흡수
+    private Integer systolicBP;       // 수축기 혈압
+    private Integer diastolicBP;      // 이완기 혈압
+
+    public VitalsResponseDto(Vitals v) {
+        this.id             = v.getId();
+        this.patientId      = v.getPatient().getId();
+        this.temperature    = v.getTemperature();
+        this.heartRate      = v.getHeartRate();
+        this.respiratoryRate= v.getRespiratoryRate();
+        this.systolicBP     = v.getSystolicBP();
+        this.diastolicBP    = v.getDiastolicBP();
     }
 }

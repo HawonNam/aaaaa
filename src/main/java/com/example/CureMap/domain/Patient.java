@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -36,11 +38,12 @@ public class Patient {
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LabResult> labResults = new ArrayList<>();
 
+    // Patient.java
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AntibioticHistory> antibioticHistories = new ArrayList<>();
+    private Set<AntibioticHistory> antibioticHistories = new HashSet<>();
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CurrentMedication> currentMedications = new ArrayList<>();
+    private Set<CurrentMedication> currentMedications = new HashSet<>();
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PredictionResult> predictionResults = new ArrayList<>();

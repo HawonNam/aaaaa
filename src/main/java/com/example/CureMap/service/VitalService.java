@@ -8,6 +8,9 @@ import com.example.CureMap.repository.PatientRepository;
 import com.example.CureMap.repository.VitalsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -30,5 +33,15 @@ public class VitalService {
 
         Vitals saved = vitalsRepository.save(vitals);
         return new VitalsResponseDto(saved);
+    }
+
+    @Transactional(readOnly = true)
+    public List<VitalsResponseDto> getVitalsByPatientId(Long patientId) {
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid patient ID"));
+        return vitalsRepository.findAllByPatient(patient)
+                .stream()
+                .map(VitalsResponseDto::new)
+                .toList();
     }
 }
